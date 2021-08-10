@@ -45,26 +45,20 @@ config("libusb_config") {
     "-Wno-error=pragma-pack",
   ]
   if (is_linux) {
-    include_dirs += [
-      "linux",
-    ]
+    include_dirs += [ "linux" ]
   } else if (is_mingw || is_win) {
     cflags += [
       "-Werror",
       "-Wno-unused-function",
       "-Wno-unused-parameter",
     ]
-    include_dirs += [
-      "windows",
-    ]
+    include_dirs += [ "windows" ]
   } else if (is_mac) {
     cflags += [
       "-Wno-unused-parameter",
       "-Wno-deprecated-declarations",
     ]
-    include_dirs += [
-      "darwin",
-    ]
+    include_dirs += [ "darwin" ]
     libs += [
       "CoreFoundation.framework",
       "IOKit.framework",
@@ -93,18 +87,16 @@ ohos_source_set("libusb_source") {
     ]
   } else if (is_linux) {
     sources += [
+      "libusb/os/linux_netlink.c",
       "libusb/os/linux_usbfs.c",
       "libusb/os/poll_posix.c",
       "libusb/os/threads_posix.c",
-      "libusb/os/linux_netlink.c",
     ]
   }
 }
 
 config("libusb_public_config") {
-  include_dirs = [
-    "./",
-  ]
+  include_dirs = [ "./" ]
 }
 
 ohos_static_library("libusb") {
