@@ -59,7 +59,7 @@ config("libusb_config") {
       "-Wno-deprecated-declarations",
     ]
     include_dirs += [ "darwin" ]
-    libs += [
+    libs = [
       "CoreFoundation.framework",
       "IOKit.framework",
       "objc",
