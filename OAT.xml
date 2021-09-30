@@ -64,7 +64,7 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="Xcode/.*" desc="no license header"/>
                 <filteritem type="filepath" name="examples/.*" desc="no license header"/>
                 <filteritem type="filepath" name="libusb/.*" desc="no license header"/>
-                <filteritem type="filepath" name="./COPYING" desc="no license header"/>
+                <filteritem type="filepath" name="COPYING" desc="no license header"/>
                 <filteritem type="filepath" name="msvc/.*" desc="no license header"/>
                 <filteritem type="filepath" name="android/.*" desc="no license header"/>
                 <filteritem type="filepath" name="tests/.*" desc="no license header"/>
