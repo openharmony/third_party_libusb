@@ -1,0 +1,39 @@
+{
+    "name": "@ohos/libusb",
+    "version": "",
+    "description": "Third-party open-source software libusb | 三方开源软件libusb",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "UNLICENSED",
+    "repository": "https://gitee.com/openharmony/third_party_libusb",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "third_party"
+    ],
+    "keywords": [
+        "third-party",
+        "libusb"
+    ],
+    "envs": [],
+    "dirs": [],
+    "segment": {
+        "destPath": "third_party/libusb"
+    },
+    "component": {
+        "name": "thirdparty_libusb",
+        "subsystem": "",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [],
+        "rom": "",
+        "ram": "",
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}
