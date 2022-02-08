@@ -44,7 +44,7 @@ config("libusb_config") {
     "-Wno-error=switch",
     "-Wno-error=pragma-pack",
   ]
-  if (is_linux) {
+  if (is_linux || is_ohos) {
     include_dirs += [ "linux" ]
   } else if (is_mingw || is_win) {
     cflags += [
@@ -85,7 +85,7 @@ ohos_source_set("libusb_source") {
       "libusb/os/windows_usbdk.c",
       "libusb/os/windows_winusb.c",
     ]
-  } else if (is_linux) {
+  } else if (is_linux || is_ohos) {
     sources += [
       "libusb/os/linux_netlink.c",
       "libusb/os/linux_usbfs.c",
