@@ -46,17 +46,20 @@ config("libusb_config") {
   ]
   if (is_linux || is_ohos) {
     include_dirs += [ "linux" ]
+    cflags += [ "-DPLATFORM_POSIX" ]
   } else if (is_mingw || is_win) {
     cflags += [
       "-Werror",
       "-Wno-unused-function",
       "-Wno-unused-parameter",
+      "-DPLATFORM_WINDOWS",
     ]
     include_dirs += [ "windows" ]
   } else if (is_mac) {
     cflags += [
       "-Wno-unused-parameter",
       "-Wno-deprecated-declarations",
+      "-DPLATFORM_POSIX",
     ]
     include_dirs += [ "darwin" ]
     libs = [
@@ -74,22 +77,22 @@ ohos_source_set("libusb_source") {
   if (is_mac) {
     sources += [
       "libusb/os/darwin_usb.c",
-      "libusb/os/poll_posix.c",
+      "libusb/os/events_posix.c",
       "libusb/os/threads_posix.c",
     ]
   } else if (is_mingw || is_win) {
     sources += [
-      "libusb/os/poll_windows.c",
+      "libusb/os/events_windows.c",
       "libusb/os/threads_windows.c",
-      "libusb/os/windows_nt_common.c",
+      "libusb/os/windows_common.c",
       "libusb/os/windows_usbdk.c",
       "libusb/os/windows_winusb.c",
     ]
   } else if (is_linux || is_ohos) {
     sources += [
+      "libusb/os/events_posix.c",
       "libusb/os/linux_netlink.c",
       "libusb/os/linux_usbfs.c",
-      "libusb/os/poll_posix.c",
       "libusb/os/threads_posix.c",
     ]
   }
@@ -99,7 +102,8 @@ config("libusb_public_config") {
   include_dirs = [ "./" ]
 }
 
-ohos_static_library("libusb") {
+ohos_shared_library("libusb") {
   deps = [ ":libusb_source" ]
   public_configs = [ ":libusb_public_config" ]
+  output_name = "libusb_shared"
 }

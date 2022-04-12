@@ -56,9 +56,17 @@ Note:If the text contains special characters, please escape them according to th
 <configuration>
     <oatconfig>
         <licensefile>./COPYING</licensefile>
+        <policylist>
+            <policy name="projectPolicy" desc="">
+                <policyitem type="compatibility" name="LGPL-2.0+" path="Makefile.am" desc="the License of this file is LGPL"/>
+            </policy>
+        </policylist>
         <filefilterlist>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
                 <filteritem type="filepath" name="doc/libusb.png" desc="the binary file in third party"/>
+            </filefilter>
+            <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
+                <filteritem type="filepath" name="Makefile.am" desc="not used in ohos project"/>
             </filefilter>
             <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
                 <filteritem type="filepath" name="Xcode/.*" desc="no license header"/>
