@@ -120,7 +120,7 @@
 #define PACKAGE_URL "http://libusb.info"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0.21-rc5"
+#define PACKAGE_VERSION "1.0.24"
 
 /* type of second poll() argument */
 #define POLL_NFDS_TYPE nfds_t
@@ -144,13 +144,30 @@
 /* #undef USE_USBDK */
 
 /* Version number of package */
-#define VERSION "1.0.21-rc5"
+#define VERSION "1.0.24"
 
 /* Oldest Windows version supported */
 /* #undef WINVER */
 
 /* Use GNU extensions */
 #define _GNU_SOURCE 1
+
+/* Define to 1 if you have the `clock_gettime' function. */
+#define HAVE_CLOCK_GETTIME 1
+
+/* Define to 1 if the system has the type `nfds_t'. */
+#define HAVE_NFDS_T 1
+
+/* Define to 1 if you have the `pipe2' function. */
+#define HAVE_PIPE2 1
+
+/* Define to 1 if compiling for a POSIX platform. */
+#define PLATFORM_POSIX 1
+
+/* Define to the attribute for enabling parameter checks on printf-like
+   functions. */
+//#define PRINTF_FORMAT(a, b) __attribute__ ((__format__ (__printf__, a, b)))
+#define PRINTF_FORMAT(a, b)
 
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
