@@ -120,7 +120,7 @@
 #define PACKAGE_URL "http://libusb.info"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0.21-rc5"
+#define PACKAGE_VERSION "1.0.24"
 
 /* type of second poll() argument */
 #define POLL_NFDS_TYPE unsigned int
@@ -144,7 +144,9 @@
 /* #undef USE_USBDK */
 
 /* Version number of package */
-#define VERSION "1.0.21-rc5"
+#define VERSION "1.0.24"
+
+#define PRINTF_FORMAT(a, b)
 
 /* Oldest Windows version supported */
 /* #undef WINVER */
