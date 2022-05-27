@@ -294,15 +294,18 @@ enum libusb_transfer_status usbd_status_to_libusb_transfer_status(USBD_STATUS st
  */
 void windows_force_sync_completion(struct usbi_transfer *itransfer, ULONG size)
 {
+	struct libusb_transfer *transfer = USBI_TRANSFER_TO_LIBUSB_TRANSFER(itransfer);
+	struct windows_context_priv *priv = usbi_get_context_priv(TRANSFER_CTX(transfer));
 	struct windows_transfer_priv *transfer_priv = usbi_get_transfer_priv(itransfer);
 	OVERLAPPED *overlapped = &transfer_priv->overlapped;
 
-	usbi_dbg("transfer %p, length %lu", USBI_TRANSFER_TO_LIBUSB_TRANSFER(itransfer), ULONG_CAST(size));
+	usbi_dbg("transfer %p, length %lu", transfer, ULONG_CAST(size));
 
 	overlapped->Internal = (ULONG_PTR)STATUS_SUCCESS;
 	overlapped->InternalHigh = (ULONG_PTR)size;
 
-	usbi_signal_transfer_completion(itransfer);
+	if (!PostQueuedCompletionStatus(priv->completion_port, (DWORD)size, (ULONG_PTR)transfer->dev_handle, overlapped))
+		usbi_err(TRANSFER_CTX(transfer), "failed to post I/O completion: %s", windows_error_str(0));
 }
 
 /* Windows version detection */
@@ -416,8 +419,11 @@ static unsigned __stdcall windows_iocp_thread(void *arg)
 	DWORD num_bytes;
 	ULONG_PTR completion_key;
 	OVERLAPPED *overlapped;
+	struct libusb_device_handle *dev_handle;
+	struct windows_device_handle_priv *handle_priv;
 	struct windows_transfer_priv *transfer_priv;
 	struct usbi_transfer *itransfer;
+	bool found;
 
 	usbi_dbg("I/O completion thread started");
 
@@ -435,7 +441,29 @@ static unsigned __stdcall windows_iocp_thread(void *arg)
 			break;
 		}
 
-		transfer_priv = container_of(overlapped, struct windows_transfer_priv, overlapped);
+		// Find the transfer associated with the OVERLAPPED that just completed.
+		// If we cannot find a match, the I/O operation originated from outside of libusb
+		// (e.g. within libusbK) and we need to ignore it.
+		dev_handle = (struct libusb_device_handle *)completion_key;
+		handle_priv = usbi_get_device_handle_priv(dev_handle);
+		found = false;
+		usbi_mutex_lock(&dev_handle->lock);
+		list_for_each_entry(transfer_priv, &handle_priv->active_transfers, list, struct windows_transfer_priv) {
+			if (overlapped == &transfer_priv->overlapped) {
+				// This OVERLAPPED belongs to us, remove the transfer from the device handle's list
+				list_del(&transfer_priv->list);
+				found = true;
+				break;
+			}
+		}
+		usbi_mutex_unlock(&dev_handle->lock);
+
+		if (!found) {
+			usbi_dbg("ignoring overlapped %p for handle %p (device %u.%u)",
+				overlapped, dev_handle, dev_handle->dev->bus_number, dev_handle->dev->device_address);
+			continue;
+		}
+
 		itransfer = (struct usbi_transfer *)((unsigned char *)transfer_priv + PTR_ALIGN(sizeof(*transfer_priv)));
 		usbi_dbg("transfer %p completed, length %lu",
 			 USBI_TRANSFER_TO_LIBUSB_TRANSFER(itransfer), ULONG_CAST(num_bytes));
@@ -614,6 +642,9 @@ static int windows_get_device_list(struct libusb_context *ctx, struct discovered
 static int windows_open(struct libusb_device_handle *dev_handle)
 {
 	struct windows_context_priv *priv = usbi_get_context_priv(HANDLE_CTX(dev_handle));
+	struct windows_device_handle_priv *handle_priv = usbi_get_device_handle_priv(dev_handle);
+
+	list_init(&handle_priv->active_transfers);
 	return priv->backend->open(dev_handle);
 }
 
@@ -698,8 +729,10 @@ static void windows_destroy_device(struct libusb_device *dev)
 static int windows_submit_transfer(struct usbi_transfer *itransfer)
 {
 	struct libusb_transfer *transfer = USBI_TRANSFER_TO_LIBUSB_TRANSFER(itransfer);
-	struct libusb_context *ctx = TRANSFER_CTX(transfer);
+	struct libusb_device_handle *dev_handle = transfer->dev_handle;
+	struct libusb_context *ctx = HANDLE_CTX(dev_handle);
 	struct windows_context_priv *priv = usbi_get_context_priv(ctx);
+	struct windows_device_handle_priv *handle_priv = usbi_get_device_handle_priv(dev_handle);
 	struct windows_transfer_priv *transfer_priv = usbi_get_transfer_priv(itransfer);
 	int r;
 
@@ -722,8 +755,18 @@ static int windows_submit_transfer(struct usbi_transfer *itransfer)
 		transfer_priv->handle = NULL;
 	}
 
+	// Add transfer to the device handle's list
+	usbi_mutex_lock(&dev_handle->lock);
+	list_add_tail(&transfer_priv->list, &handle_priv->active_transfers);
+	usbi_mutex_unlock(&dev_handle->lock);
+
 	r = priv->backend->submit_transfer(itransfer);
 	if (r != LIBUSB_SUCCESS) {
+		// Remove the unsuccessful transfer from the device handle's list
+		usbi_mutex_lock(&dev_handle->lock);
+		list_del(&transfer_priv->list);
+		usbi_mutex_unlock(&dev_handle->lock);
+
 		// Always call the backend's clear_transfer_priv() function on failure
 		priv->backend->clear_transfer_priv(itransfer);
 		transfer_priv->handle = NULL;
@@ -881,6 +924,6 @@ const struct usbi_os_backend usbi_backend = {
 	windows_handle_transfer_completion,
 	sizeof(struct windows_context_priv),
 	sizeof(union windows_device_priv),
-	sizeof(union windows_device_handle_priv),
+	sizeof(struct windows_device_handle_priv),
 	sizeof(struct windows_transfer_priv),
 };
