@@ -62,11 +62,11 @@ config("libusb_config") {
       "-DPLATFORM_POSIX",
     ]
     include_dirs += [ "darwin" ]
-    libs = [
+    frameworks = [
       "CoreFoundation.framework",
       "IOKit.framework",
-      "objc",
     ]
+    libs = [ "objc" ]
   }
 }
 
