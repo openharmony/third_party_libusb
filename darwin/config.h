@@ -1,47 +1,73 @@
 /* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* Default visibility */
-#define DEFAULT_VISIBILITY __attribute__((visibility("default")))
+/* Define to the attribute for default visibility. */
+#define DEFAULT_VISIBILITY __attribute__ ((visibility ("default")))
 
-/* Start with debug message logging enabled */
+/* Define to 1 to start with debug message logging enabled. */
 /* #undef ENABLE_DEBUG_LOGGING */
 
-/* Message logging */
+/* Define to 1 to enable message logging. */
 #define ENABLE_LOGGING 1
 
 /* Define to 1 if you have the <asm/types.h> header file. */
 /* #undef HAVE_ASM_TYPES_H */
 
+/* Define to 1 if you have the `clock_gettime' function. */
+/* #undef HAVE_CLOCK_GETTIME */
+
+/* Define to 1 if you have the declaration of `EFD_CLOEXEC', and to 0 if you
+   don't. */
+/* #undef HAVE_DECL_EFD_CLOEXEC */
+
+/* Define to 1 if you have the declaration of `EFD_NONBLOCK', and to 0 if you
+   don't. */
+/* #undef HAVE_DECL_EFD_NONBLOCK */
+
+/* Define to 1 if you have the declaration of `TFD_CLOEXEC', and to 0 if you
+   don't. */
+/* #undef HAVE_DECL_TFD_CLOEXEC */
+
+/* Define to 1 if you have the declaration of `TFD_NONBLOCK', and to 0 if you
+   don't. */
+/* #undef HAVE_DECL_TFD_NONBLOCK */
+
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
 
-/* Define to 1 if you have the `gettimeofday' function. */
-/* #undef HAVE_GETTIMEOFDAY */
+/* Define to 1 if the system has eventfd functionality. */
+/* #undef HAVE_EVENTFD */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
 
+/* Define to 1 if you have the <IOKit/usb/IOUSBHostFamilyDefinitions.h> header
+   file. */
+#define HAVE_IOKIT_USB_IOUSBHOSTFAMILYDEFINITIONS_H 1
+
 /* Define to 1 if you have the `udev' library (-ludev). */
 /* #undef HAVE_LIBUDEV */
 
-/* Define to 1 if you have the <libudev.h> header file. */
-/* #undef HAVE_LIBUDEV_H */
+/* Define to 1 if the system has the type `nfds_t'. */
+#define HAVE_NFDS_T 1
 
-/* Define to 1 if you have the <linux/netlink.h> header file. */
-/* #undef HAVE_LINUX_NETLINK_H */
+/* Define to 1 if you have the `pipe2' function. */
+/* #undef HAVE_PIPE2 */
 
-/* Define to 1 if you have the <memory.h> header file. */
-#define HAVE_MEMORY_H 1
+/* Define to 1 if you have the `pthread_condattr_setclock' function. */
+/* #undef HAVE_PTHREAD_CONDATTR_SETCLOCK */
 
-/* Define to 1 if you have the <poll.h> header file. */
-#define HAVE_POLL_H 1
+/* Define to 1 if you have the `pthread_setname_np' function. */
+/* #undef HAVE_PTHREAD_SETNAME_NP */
 
-/* Define to 1 if you have the <signal.h> header file. */
-/* #undef HAVE_SIGNAL_H */
+/* Define to 1 if you have the `pthread_threadid_np' function. */
+#define HAVE_PTHREAD_THREADID_NP 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
+
+/* Define to 1 if you have the <stdio.h> header file. */
+#define HAVE_STDIO_H 1
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #define HAVE_STDLIB_H 1
@@ -53,16 +79,10 @@
 #define HAVE_STRING_H 1
 
 /* Define to 1 if the system has the type `struct timespec'. */
-#define HAVE_STRUCT_TIMESPEC 1
+/* #undef HAVE_STRUCT_TIMESPEC */
 
-/* syslog() function available */
-#define HAVE_SYSLOG_FUNC 1
-
-/* Define to 1 if you have the <syslog.h> header file. */
-#define HAVE_SYSLOG_H 1
-
-/* Define to 1 if you have the <sys/socket.h> header file. */
-/* #undef HAVE_SYS_SOCKET_H */
+/* Define to 1 if you have the `syslog' function. */
+/* #undef HAVE_SYSLOG */
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
@@ -73,85 +93,65 @@
 /* Define to 1 if you have the <sys/types.h> header file. */
 #define HAVE_SYS_TYPES_H 1
 
+/* Define to 1 if the system has timerfd functionality. */
+/* #undef HAVE_TIMERFD */
+
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
 
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #define LT_OBJDIR ".libs/"
 
-/* Darwin backend */
-#define OS_DARWIN 1
-
-/* Haiku backend */
-/* #undef OS_HAIKU */
-
-/* Linux backend */
-/* #undef OS_LINUX */
-
-/* NetBSD backend */
-/* #undef OS_NETBSD */
-
-/* OpenBSD backend */
-/* #undef OS_OPENBSD */
-
-/* SunOS backend */
-/* #undef OS_SUNOS */
-
-/* Windows backend */
-/* #undef OS_WINDOWS */
-
 /* Name of package */
-#define PACKAGE "libusb"
+#define PACKAGE "libusb-1.0"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "libusb-devel@lists.sourceforge.net"
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "libusb"
+#define PACKAGE_NAME "libusb-1.0"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "libusb 1.0.21-rc5"
+#define PACKAGE_STRING "libusb-1.0 1.0.26"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "libusb"
+#define PACKAGE_TARNAME "libusb-1.0"
 
 /* Define to the home page for this package. */
 #define PACKAGE_URL "http://libusb.info"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0.24"
+#define PACKAGE_VERSION "1.0.26"
 
-/* type of second poll() argument */
-#define POLL_NFDS_TYPE nfds_t
+/* Define to 1 if compiling for a POSIX platform. */
+#define PLATFORM_POSIX 1
 
-/* Define to 1 if you have the ANSI C header files. */
+/* Define to 1 if compiling for a Windows platform. */
+/* #undef PLATFORM_WINDOWS */
+
+/* Define to the attribute for enabling parameter checks on printf-like
+   functions. */
+#define PRINTF_FORMAT(a, b) __attribute__ ((__format__ (__printf__, a, b)))
+
+/* Define to 1 if all of the C90 standard headers exist (not just the ones
+   required in a freestanding environment). This macro is provided for
+   backward compatibility; new code need not use it. */
 #define STDC_HEADERS 1
 
-/* Use POSIX Threads */
-#define THREADS_POSIX 1
+/* UMockdev hotplug code is not racy */
+/* #undef UMOCKDEV_HOTPLUG */
 
-/* timerfd headers available */
-/* #undef USBI_TIMERFD_AVAILABLE */
-
-/* Enable output to system log */
+/* Define to 1 to output logging messages to the systemwide log. */
 /* #undef USE_SYSTEM_LOGGING_FACILITY */
 
-/* Use udev for device enumeration/hotplug */
-/* #undef USE_UDEV */
-
-/* Use UsbDk Windows backend */
-/* #undef USE_USBDK */
-
 /* Version number of package */
-#define VERSION "1.0.24"
+#define VERSION "1.0.26"
 
-#define PRINTF_FORMAT(a, b)
-
-/* Oldest Windows version supported */
-/* #undef WINVER */
-
-/* Use GNU extensions */
+/* Enable GNU extensions. */
 #define _GNU_SOURCE 1
+
+/* Define to the oldest supported Windows version. */
+/* #undef _WIN32_WINNT */
 
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
