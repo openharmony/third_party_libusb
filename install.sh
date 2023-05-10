@@ -14,9 +14,18 @@
 
 set -e
 cd $1
+if [ -d "darwin" ];then
+    rm -rf darwin
+fi
+if [ -d "linux" ];then
+    rm -rf linux
+fi
+if [ -d "windows" ];then
+    rm -rf windows
+fi
+patch -p1 < add_config_h.patch
 if [ -d "libusb-1.0.26" ];then
     rm -rf libusb-1.0.26
 fi
 tar jxvf libusb-1.0.26.tar.bz2
-cd $1/libusb-1.0.26
 exit 0
