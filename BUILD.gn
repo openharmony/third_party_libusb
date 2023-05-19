@@ -69,6 +69,7 @@ config("libusb_config") {
     frameworks = [
       "CoreFoundation.framework",
       "IOKit.framework",
+      "Security.framework",
     ]
     libs = [ "objc" ]
   }
