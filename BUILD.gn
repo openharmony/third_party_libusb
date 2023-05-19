@@ -61,7 +61,6 @@ config("libusb_config") {
     include_dirs += [ "${LIBUSB_DIR}/windows" ]
   } else if (is_mac) {
     cflags += [
-      "-Wl,-framework,Security",
       "-Wno-unused-parameter",
       "-Wno-deprecated-declarations",
       "-DPLATFORM_POSIX",
@@ -70,6 +69,7 @@ config("libusb_config") {
     frameworks = [
       "CoreFoundation.framework",
       "IOKit.framework",
+      "Security.framework",
     ]
     libs = [ "objc" ]
   }
