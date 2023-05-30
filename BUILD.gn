@@ -20,21 +20,25 @@
 
 import("//build/ohos.gni")
 
+LIBUSB_DIR = rebase_path("//third_party/libusb")
+exec_script("install.sh", [ "${LIBUSB_DIR}" ])
+
+SRC_PATH = rebase_path("//third_party/libusb/libusb-1.0.26")
+
 common_source = [
-  "libusb/core.c",
-  "libusb/descriptor.c",
-  "libusb/hotplug.c",
-  "libusb/io.c",
-  "libusb/sync.c",
-  "libusb/strerror.c",
+  "${SRC_PATH}/libusb/core.c",
+  "${SRC_PATH}/libusb/descriptor.c",
+  "${SRC_PATH}/libusb/hotplug.c",
+  "${SRC_PATH}/libusb/io.c",
+  "${SRC_PATH}/libusb/sync.c",
+  "${SRC_PATH}/libusb/strerror.c",
 ]
 
 # Configuration for libusb itself.
 config("libusb_config") {
   include_dirs = [
-    "include",
-    "libusb",
-    "libusb/os",
+    "${SRC_PATH}/libusb",
+    "${SRC_PATH}/libusb/os",
   ]
   cflags = [
     "-U__ANDROID__",
@@ -45,7 +49,7 @@ config("libusb_config") {
     "-Wno-error=pragma-pack",
   ]
   if (is_linux || is_ohos) {
-    include_dirs += [ "linux" ]
+    include_dirs += [ "${LIBUSB_DIR}/linux" ]
     cflags += [ "-DPLATFORM_POSIX" ]
   } else if (is_mingw || is_win) {
     cflags += [
@@ -54,17 +58,18 @@ config("libusb_config") {
       "-Wno-unused-parameter",
       "-DPLATFORM_WINDOWS",
     ]
-    include_dirs += [ "windows" ]
+    include_dirs += [ "${LIBUSB_DIR}/windows" ]
   } else if (is_mac) {
     cflags += [
       "-Wno-unused-parameter",
       "-Wno-deprecated-declarations",
       "-DPLATFORM_POSIX",
     ]
-    include_dirs += [ "darwin" ]
+    include_dirs += [ "${LIBUSB_DIR}/darwin" ]
     frameworks = [
       "CoreFoundation.framework",
       "IOKit.framework",
+      "Security.framework",
     ]
     libs = [ "objc" ]
   }
@@ -76,30 +81,30 @@ ohos_source_set("libusb_source") {
 
   if (is_mac) {
     sources += [
-      "libusb/os/darwin_usb.c",
-      "libusb/os/events_posix.c",
-      "libusb/os/threads_posix.c",
+      "${SRC_PATH}/libusb/os/darwin_usb.c",
+      "${SRC_PATH}/libusb/os/events_posix.c",
+      "${SRC_PATH}/libusb/os/threads_posix.c",
     ]
   } else if (is_mingw || is_win) {
     sources += [
-      "libusb/os/events_windows.c",
-      "libusb/os/threads_windows.c",
-      "libusb/os/windows_common.c",
-      "libusb/os/windows_usbdk.c",
-      "libusb/os/windows_winusb.c",
+      "${SRC_PATH}/libusb/os/events_windows.c",
+      "${SRC_PATH}/libusb/os/threads_windows.c",
+      "${SRC_PATH}/libusb/os/windows_common.c",
+      "${SRC_PATH}/libusb/os/windows_usbdk.c",
+      "${SRC_PATH}/libusb/os/windows_winusb.c",
     ]
   } else if (is_linux || is_ohos) {
     sources += [
-      "libusb/os/events_posix.c",
-      "libusb/os/linux_netlink.c",
-      "libusb/os/linux_usbfs.c",
-      "libusb/os/threads_posix.c",
+      "${SRC_PATH}/libusb/os/events_posix.c",
+      "${SRC_PATH}/libusb/os/linux_netlink.c",
+      "${SRC_PATH}/libusb/os/linux_usbfs.c",
+      "${SRC_PATH}/libusb/os/threads_posix.c",
     ]
   }
 }
 
 config("libusb_public_config") {
-  include_dirs = [ "./" ]
+  include_dirs = [ "${SRC_PATH}" ]
 }
 
 ohos_shared_library("libusb") {
