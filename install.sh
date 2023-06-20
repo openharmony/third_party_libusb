@@ -13,7 +13,7 @@
 # limitations under the License.
 
 set -e
-cd $1
+cd $(cd $(dirname $0); pwd)
 if [ -d "darwin" ];then
     rm -rf darwin
 fi
