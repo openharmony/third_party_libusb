@@ -14,16 +14,6 @@
 
 set -e
 cd $(cd $(dirname $0); pwd)
-if [ -d "darwin" ];then
-    rm -rf darwin
-fi
-if [ -d "linux" ];then
-    rm -rf linux
-fi
-if [ -d "windows" ];then
-    rm -rf windows
-fi
-patch -p1 < add_config_h.patch
 if [ -d "libusb-1.0.26" ];then
     rm -rf libusb-1.0.26
 fi
