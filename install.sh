@@ -13,9 +13,8 @@
 # limitations under the License.
 
 set -e
-cd $(cd $(dirname $0); pwd)
-if [ -d "libusb-1.0.26" ];then
-    rm -rf libusb-1.0.26
+if [ -d "$1/libusb-1.0.26" ];then
+    rm -rf $1/libusb-1.0.26
 fi
-tar jxvf libusb-1.0.26.tar.bz2
+tar jxvf $2/libusb-1.0.26.tar.bz2 -C $1
 exit 0

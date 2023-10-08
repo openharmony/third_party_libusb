@@ -21,24 +21,56 @@
 import("//build/ohos.gni")
 
 LIBUSB_DIR = rebase_path("//third_party/libusb")
-exec_script("install.sh", [ "${LIBUSB_DIR}" ])
 
-SRC_PATH = rebase_path("//third_party/libusb/libusb-1.0.26")
+action("libusb_action") {
+  script = "//third_party/libusb/install.sh"
+  outputs = [
+    "${target_gen_dir}/libusb-1.0.26/libusb/core.c",
+    "${target_gen_dir}/libusb-1.0.26/libusb/descriptor.c",
+    "${target_gen_dir}/libusb-1.0.26/libusb/hotplug.c",
+    "${target_gen_dir}/libusb-1.0.26/libusb/io.c",
+    "${target_gen_dir}/libusb-1.0.26/libusb/sync.c",
+    "${target_gen_dir}/libusb-1.0.26/libusb/strerror.c",
+  ]
 
-common_source = [
-  "${SRC_PATH}/libusb/core.c",
-  "${SRC_PATH}/libusb/descriptor.c",
-  "${SRC_PATH}/libusb/hotplug.c",
-  "${SRC_PATH}/libusb/io.c",
-  "${SRC_PATH}/libusb/sync.c",
-  "${SRC_PATH}/libusb/strerror.c",
-]
+  if (is_mac) {
+    outputs += [
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/darwin_usb.c",
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/events_posix.c",
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/threads_posix.c",
+    ]
+  } else if (is_mingw || is_win) {
+    outputs += [
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/events_windows.c",
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/threads_windows.c",
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/windows_common.c",
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/windows_usbdk.c",
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/windows_winusb.c",
+    ]
+  } else if (is_linux || is_ohos) {
+    outputs += [
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/events_posix.c",
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/linux_netlink.c",
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/linux_usbfs.c",
+      "${target_gen_dir}/libusb-1.0.26/libusb/os/threads_posix.c",
+    ]
+  }
+
+  inputs = [ "//third_party/libusb/libusb-1.0.26.tar.bz2" ]
+
+  libusb_path = rebase_path("${target_gen_dir}", root_build_dir)
+  libusb_source_path = rebase_path("//third_party/libusb", root_build_dir)
+  args = [
+    "$libusb_path",
+    "$libusb_source_path",
+  ]
+}
 
 # Configuration for libusb itself.
 config("libusb_config") {
   include_dirs = [
-    "${SRC_PATH}/libusb",
-    "${SRC_PATH}/libusb/os",
+    "${target_gen_dir}/libusb-1.0.26/libusb",
+    "${target_gen_dir}/libusb-1.0.26/libusb/os",
   ]
   cflags = [
     "-U__ANDROID__",
@@ -77,34 +109,15 @@ config("libusb_config") {
 
 ohos_source_set("libusb_source") {
   configs = [ ":libusb_config" ]
-  sources = common_source
+  sources = get_target_outputs(":libusb_action")
+  deps = [ ":libusb_action" ]
 
-  if (is_mac) {
-    sources += [
-      "${SRC_PATH}/libusb/os/darwin_usb.c",
-      "${SRC_PATH}/libusb/os/events_posix.c",
-      "${SRC_PATH}/libusb/os/threads_posix.c",
-    ]
-  } else if (is_mingw || is_win) {
-    sources += [
-      "${SRC_PATH}/libusb/os/events_windows.c",
-      "${SRC_PATH}/libusb/os/threads_windows.c",
-      "${SRC_PATH}/libusb/os/windows_common.c",
-      "${SRC_PATH}/libusb/os/windows_usbdk.c",
-      "${SRC_PATH}/libusb/os/windows_winusb.c",
-    ]
-  } else if (is_linux || is_ohos) {
-    sources += [
-      "${SRC_PATH}/libusb/os/events_posix.c",
-      "${SRC_PATH}/libusb/os/linux_netlink.c",
-      "${SRC_PATH}/libusb/os/linux_usbfs.c",
-      "${SRC_PATH}/libusb/os/threads_posix.c",
-    ]
-  }
+  subsystem_name = "thirdparty"
+  part_name = "libusb"
 }
 
 config("libusb_public_config") {
-  include_dirs = [ "${SRC_PATH}" ]
+  include_dirs = [ "${target_gen_dir}/libusb-1.0.26" ]
 }
 
 ohos_shared_library("libusb") {
