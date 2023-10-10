@@ -119,8 +119,11 @@ ohos_source_set("libusb_source") {
 }
 
 config("libusb_public_config") {
-  include_dirs =
-      [ get_label_info(":libusb_action", "target_gen_dir") + "/libusb-1.0.26" ]
+  include_dirs = [
+    get_label_info(":libusb_action", "target_gen_dir") + "/libusb-1.0.26",
+    get_label_info(":libusb_action", "target_gen_dir") +
+        "/libusb-1.0.26/libusb",
+  ]
 }
 
 ohos_shared_library("libusb") {
