@@ -20,5 +20,6 @@ if [ -d "$1/libusb-1.0.26" ];then
 fi
 tar jxvf $2/libusb-1.0.26.tar.bz2 -C $1
 flock -u 100
-} 100<>$1/tar_libusb.lock
+} 100<>$2/lock_file.lock
 exit 0
+-
