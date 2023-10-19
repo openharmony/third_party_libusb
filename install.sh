@@ -24,5 +24,5 @@ tar jxvf $2/libusb-1.0.26.tar.bz2 -C $1
 if [ "$(uname)" != "Darwin" ]; then
     flock -u 100
 fi
-} 100<>$1/lock_file.lock
+} 100<>$2/lock_file.lock
 exit 0
