@@ -13,13 +13,8 @@
 # limitations under the License.
 
 set -e
-{
-flock -x 100
 if [ -d "$1/libusb-1.0.26" ];then
     rm -rf $1/libusb-1.0.26
 fi
 tar jxvf $2/libusb-1.0.26.tar.bz2 -C $1
-flock -u 100
-} 100<>$2/lock_file.lock
 exit 0
--
