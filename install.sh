@@ -13,8 +13,16 @@
 # limitations under the License.
 
 set -e
+{
+if [ "$(uname)" != "Darwin" ];then
+    flock -x 100
+fi
 if [ -d "$1/libusb-1.0.26" ];then
     rm -rf $1/libusb-1.0.26
 fi
 tar jxvf $2/libusb-1.0.26.tar.bz2 -C $1
+if [ "$(uname)" != "Darwin" ];then
+    flock -u 100
+fi
+} 100<>$2/lock_file.lock
 exit 0
