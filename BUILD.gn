@@ -130,4 +130,5 @@ ohos_shared_library("libusb") {
   deps = [ ":libusb_source" ]
   public_configs = [ ":libusb_public_config" ]
   output_name = "libusb_shared"
+  install_images = [ "system" ]
 }
