@@ -24,7 +24,15 @@
         },
         "build": {
             "sub_component": [],
-            "inner_kits": [],
+            "inner_kits": [
+                {
+                    "name": "//third_party/libusb:libusb",
+                    "header": {
+                      "header_files": [],
+                      "header_base": "//third_party/libusb"
+                    }
+                }
+            ],
             "test": []
         }
     }
