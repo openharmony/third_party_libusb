@@ -21,6 +21,9 @@ if [ -d "$1/libusb-1.0.26" ];then
     rm -rf $1/libusb-1.0.26
 fi
 tar jxvf $2/libusb-1.0.26.tar.bz2 -C $1
+cp $2/fix-init-fail.patch $1/
+cd $1/libusb-1.0.26/
+patch -p1 < ../fix-init-fail.patch
 if [ "$(uname)" != "Darwin" ];then
     flock -u 100
 fi
