@@ -26,11 +26,7 @@
             "sub_component": [],
             "inner_kits": [
                 {
-                    "name": "//third_party/libusb:libusb",
-                    "header": {
-                      "header_files": [],
-                      "header_base": "//third_party/libusb"
-                    }
+                    "name": "//third_party/libusb:libusb"
                 }
             ],
             "test": []
