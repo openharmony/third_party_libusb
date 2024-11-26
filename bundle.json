@@ -26,7 +26,14 @@
             "sub_component": [],
             "inner_kits": [
                 {
-                    "name": "//third_party/libusb:libusb"
+                    "name": "//third_party/libusb:libusb",
+                    "header": {
+                        "header_files": [
+                          "libusb.h",
+                          "libusbi.h"
+                        ],
+                        "header_base": "//third_party/libusb/libusb-1.0.26/libusb/"
+                      }
                 }
             ],
             "test": []
