@@ -133,4 +133,5 @@ ohos_shared_library("libusb") {
   install_images = [ "system" ]
   subsystem_name = "thirdparty"
   part_name = "libusb"
+  innerapi_tags = [ "chipsetsdk" ]
 }
