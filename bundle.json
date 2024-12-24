@@ -32,7 +32,7 @@
                           "libusb.h",
                           "libusbi.h"
                         ],
-                        "header_base": "//third_party/libusb/libusb-1.0.26/libusb/"
+                        "header_base": "//third_party/libusb/libusb/libusb/"
                       }
                 }
             ],
