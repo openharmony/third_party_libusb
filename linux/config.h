@@ -112,7 +112,7 @@
 #define PACKAGE_NAME "libusb-1.0"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "libusb-1.0 1.0.26"
+#define PACKAGE_STRING "libusb-1.0 1.0.28"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "libusb-1.0"
@@ -121,7 +121,7 @@
 #define PACKAGE_URL "http://libusb.info"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0.26"
+#define PACKAGE_VERSION "1.0.28"
 
 /* Define to 1 if compiling for a POSIX platform. */
 #define PLATFORM_POSIX 1
@@ -140,7 +140,7 @@
 /* #undef USE_SYSTEM_LOGGING_FACILITY */
 
 /* Version number of package */
-#define VERSION "1.0.26"
+#define VERSION "1.0.28"
 
 /* Enable GNU extensions. */
 #define _GNU_SOURCE 1

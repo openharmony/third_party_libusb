@@ -2,12 +2,12 @@
 %global source  libusb
 
 Name:           libusbx
-Version:        1.0.26
+Version:        1.0.28
 Release:        1
 Summary:        Library for accessing USB devices
 License:        LGPLv2+
 URL:            http://libusb.info
-Source0:        https://github.com/libusb/libusb/releases/download/v1.0.26/libusb-1.0.26.tar.bz2
+Source0:        https://github.com/libusb/libusb/archive/refs/tags/v1.0.28.tar.gz
 
 BuildRequires:  systemd-devel doxygen libtool
 
@@ -60,6 +60,9 @@ make check
 %{_libdir}/pkgconfig/libusb-1.0.pc
 
 %changelog
+* Tue May 27 2025 Peng Liu <liupeng298@hauwei.com> - 1.0.28
+- Update to libusb-1.0.28
+
 * Fri Oct 28 2022 Wenchao Hao <haowenchao@hauwei.com> - 1.0.26-1
 - Update to libusb-1.0.26
 

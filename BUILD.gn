@@ -25,38 +25,38 @@ LIBUSB_DIR = rebase_path("//third_party/libusb")
 action("libusb_action") {
   script = "//third_party/libusb/install.sh"
   outputs = [
-    "${target_gen_dir}/libusb-1.0.26/libusb/core.c",
-    "${target_gen_dir}/libusb-1.0.26/libusb/descriptor.c",
-    "${target_gen_dir}/libusb-1.0.26/libusb/hotplug.c",
-    "${target_gen_dir}/libusb-1.0.26/libusb/io.c",
-    "${target_gen_dir}/libusb-1.0.26/libusb/sync.c",
-    "${target_gen_dir}/libusb-1.0.26/libusb/strerror.c",
+    "${target_gen_dir}/libusb-1.0.28/libusb/core.c",
+    "${target_gen_dir}/libusb-1.0.28/libusb/descriptor.c",
+    "${target_gen_dir}/libusb-1.0.28/libusb/hotplug.c",
+    "${target_gen_dir}/libusb-1.0.28/libusb/io.c",
+    "${target_gen_dir}/libusb-1.0.28/libusb/sync.c",
+    "${target_gen_dir}/libusb-1.0.28/libusb/strerror.c",
   ]
 
   if (is_mac) {
     outputs += [
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/darwin_usb.c",
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/events_posix.c",
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/threads_posix.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/darwin_usb.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/events_posix.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/threads_posix.c",
     ]
   } else if (is_mingw || is_win) {
     outputs += [
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/events_windows.c",
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/threads_windows.c",
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/windows_common.c",
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/windows_usbdk.c",
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/windows_winusb.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/events_windows.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/threads_windows.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/windows_common.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/windows_usbdk.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/windows_winusb.c",
     ]
   } else if (is_linux || is_ohos) {
     outputs += [
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/events_posix.c",
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/linux_netlink.c",
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/linux_usbfs.c",
-      "${target_gen_dir}/libusb-1.0.26/libusb/os/threads_posix.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/events_posix.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/linux_netlink.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/linux_usbfs.c",
+      "${target_gen_dir}/libusb-1.0.28/libusb/os/threads_posix.c",
     ]
   }
 
-  inputs = [ "//third_party/libusb/libusb-1.0.26.tar.bz2" ]
+  inputs = [ "//third_party/libusb/libusb-1.0.28.tar.gz" ]
 
   libusb_path = rebase_path("${target_gen_dir}", root_build_dir)
   libusb_source_path = rebase_path("//third_party/libusb", root_build_dir)
@@ -70,9 +70,9 @@ action("libusb_action") {
 config("libusb_config") {
   include_dirs = [
     get_label_info(":libusb_action", "target_gen_dir") +
-        "/libusb-1.0.26/libusb",
+        "/libusb-1.0.28/libusb",
     get_label_info(":libusb_action", "target_gen_dir") +
-        "/libusb-1.0.26/libusb/os",
+        "/libusb-1.0.28/libusb/os",
   ]
   cflags = [
     "-U__ANDROID__",
@@ -120,9 +120,9 @@ ohos_source_set("libusb_source") {
 
 config("libusb_public_config") {
   include_dirs = [
-    get_label_info(":libusb_action", "target_gen_dir") + "/libusb-1.0.26",
+    get_label_info(":libusb_action", "target_gen_dir") + "/libusb-1.0.28",
     get_label_info(":libusb_action", "target_gen_dir") +
-        "/libusb-1.0.26/libusb",
+        "/libusb-1.0.28/libusb",
   ]
 }
 
