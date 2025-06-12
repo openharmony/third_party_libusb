@@ -48,6 +48,9 @@
 /* Define to 1 if you have the `udev' library (-ludev). */
 /* #undef HAVE_LIBUDEV */
 
+/* Define to 1 if you have the <memory.h> header file. */
+#define HAVE_MEMORY_H 1
+
 /* Define to 1 if the system has the type `nfds_t'. */
 #define HAVE_NFDS_T 1
 
