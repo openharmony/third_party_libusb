@@ -11,7 +11,7 @@
 #define ENABLE_LOGGING 1
 
 /* Define to 1 if you have the <asm/types.h> header file. */
-#define HAVE_ASM_TYPES_H 1
+/* #undef HAVE_ASM_TYPES_H */
 
 /* Define to 1 if you have the `clock_gettime' function. */
 #define HAVE_CLOCK_GETTIME 1
@@ -46,10 +46,7 @@
 /* #undef HAVE_IOKIT_USB_IOUSBHOSTFAMILYDEFINITIONS_H */
 
 /* Define to 1 if you have the `udev' library (-ludev). */
-/* #undef HAVE_LIBUDEV */
-
-/* Define to 1 if you have the <memory.h> header file. */
-#define HAVE_MEMORY_H 1
+#define HAVE_LIBUDEV 1
 
 /* Define to 1 if the system has the type `nfds_t'. */
 #define HAVE_NFDS_T 1
@@ -68,6 +65,9 @@
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
+
+/* Define to 1 if you have the <stdio.h> header file. */
+#define HAVE_STDIO_H 1
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #define HAVE_STDLIB_H 1
@@ -118,7 +118,7 @@
 #define PACKAGE_TARNAME "libusb-1.0"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL "http://libusb.info"
+#define PACKAGE_URL "https://libusb.info"
 
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "1.0.28"
@@ -133,7 +133,9 @@
    functions. */
 #define PRINTF_FORMAT(a, b) __attribute__ ((__format__ (__printf__, a, b)))
 
-/* Define to 1 if you have the ANSI C header files. */
+/* Define to 1 if all of the C90 standard headers exist (not just the ones
+   required in a freestanding environment). This macro is provided for
+   backward compatibility; new code need not use it. */
 #define STDC_HEADERS 1
 
 /* Define to 1 to output logging messages to the systemwide log. */
