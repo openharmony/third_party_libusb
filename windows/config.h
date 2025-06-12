@@ -150,9 +150,6 @@
 /* Enable GNU extensions. */
 #define _GNU_SOURCE 1
 
-/* Define to the oldest supported Windows version. */
-#define _WIN32_WINNT _WIN32_WINNT_VISTA
-
 /* Define to '__inline__' or '__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
 #ifndef __cplusplus
