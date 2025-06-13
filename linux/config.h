@@ -112,16 +112,16 @@
 #define PACKAGE_NAME "libusb-1.0"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "libusb-1.0 1.0.26"
+#define PACKAGE_STRING "libusb-1.0 1.0.28"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "libusb-1.0"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL "http://libusb.info"
+#define PACKAGE_URL "https://libusb.info"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0.26"
+#define PACKAGE_VERSION "1.0.28"
 
 /* Define to 1 if compiling for a POSIX platform. */
 #define PLATFORM_POSIX 1
@@ -133,14 +133,16 @@
    functions. */
 #define PRINTF_FORMAT(a, b) __attribute__ ((__format__ (__printf__, a, b)))
 
-/* Define to 1 if you have the ANSI C header files. */
+/* Define to 1 if all of the C90 standard headers exist (not just the ones
+   required in a freestanding environment). This macro is provided for
+   backward compatibility; new code need not use it. */
 #define STDC_HEADERS 1
 
 /* Define to 1 to output logging messages to the systemwide log. */
 /* #undef USE_SYSTEM_LOGGING_FACILITY */
 
 /* Version number of package */
-#define VERSION "1.0.26"
+#define VERSION "1.0.28"
 
 /* Enable GNU extensions. */
 #define _GNU_SOURCE 1

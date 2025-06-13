@@ -65,7 +65,7 @@ Note:If the text contains special characters, please escape them according to th
         <filefilterlist>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
                 <filteritem type="filepath" name="doc/libusb.png" desc="the binary file in third party"/>
-                <filteritem type="filename" name="libusb-1.0.26.tar.bz2" desc="the binary file in third party"/>
+                <filteritem type="filename" name="libusb-1.0.28.tar.gz" desc="the binary file in third party"/>
             </filefilter>
             <filefilter name="defaultPolicyFilter" desc="Filters for compatibility, license header policies">
                 <filteritem type="filepath" name="Makefile.am" desc="not used in ohos project"/>
