@@ -21,8 +21,10 @@ if [ -d "$1/libusb-1.0.28" ];then
     rm -rf $1/libusb-1.0.28
 fi
 tar -zxvf $2/libusb-1.0.28.tar.gz -C $1
+cp $2/hide-log-dev-id.patch $1/
 cp $2/fix-init-fail.patch $1/
 cd $1/libusb-1.0.28/
+patch -p1 < ../hide-log-dev-id.patch
 patch -p1 < ../fix-init-fail.patch
 if [ "$(uname)" != "Darwin" ];then
     flock -u 100
