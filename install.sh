@@ -23,11 +23,9 @@ fi
 tar -zxvf $2/libusb-1.0.28.tar.gz -C $1
 cp $2/hide-log-dev-id.patch $1/
 cp $2/fix-init-fail.patch $1/
-cp $2/fix-descriptor-parser-memory-safety.patch $1/
 cd $1/libusb-1.0.28/
 patch -p1 < ../hide-log-dev-id.patch
 patch -p1 < ../fix-init-fail.patch
-patch -p1 < ../fix-descriptor-parser-memory-safety.patch
 if [ "$(uname)" != "Darwin" ];then
     flock -u 100
 fi
