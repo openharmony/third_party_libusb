@@ -134,11 +134,4 @@ ohos_shared_library("libusb") {
   subsystem_name = "thirdparty"
   part_name = "libusb"
   innerapi_tags = [ "chipsetsdk_sp" ]
-  branch_protector_ret = "pac_ret"
-  sanitize = {
-    cfi = true
-    cfi_cross_dso = true
-    cfi_vcall_icall_only = true
-    debug = false
-  }
 }
