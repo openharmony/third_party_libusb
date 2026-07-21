@@ -116,6 +116,7 @@ ohos_source_set("libusb_source") {
 
   subsystem_name = "thirdparty"
   part_name = "libusb"
+  branch_protector_ret = "pac_ret"
 }
 
 config("libusb_public_config") {
@@ -134,4 +135,5 @@ ohos_shared_library("libusb") {
   subsystem_name = "thirdparty"
   part_name = "libusb"
   innerapi_tags = [ "chipsetsdk_sp" ]
+  branch_protector_ret = "pac_ret"
 }
